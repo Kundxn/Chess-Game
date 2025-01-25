@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chess Game</title>
+    <style>
+        .board {
+            display: grid;
+            grid-template-columns: repeat(8, 50px);
+            grid-template-rows: repeat(8, 50px);
+        }
+        .cell {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .white { background-color: #a10e0e; }
+        .black { background-color: #000000; color: #ff4848; }
+    </style>
+</head>
+<body>
+<h1>Chess Game</h1>
+<form action="/chess/move" method="post">
+    <div class="board">
+        <div th:each="row, rowIndex : ${board}" th:each="cell, cellIndex : ${row}">
+            <div th:class="'cell ' + ((rowIndex + cellIndex) % 2 == 0 ? 'white' : 'black')"
+                 th:text="${cell}">
+            </div>
+        </div>
+    </div>
+    <input type="number" name="fromX" placeholder="From X" required>
+    <input type="number" name="fromY" placeholder="From Y" required>
+    <input type="number" name="toX" placeholder="To X" required>
+    <input type="number" name="toY" placeholder="To Y" required>
+    <button type="submit">Move</button>
+</form>
+</body>
+</html>
